@@ -3,7 +3,18 @@ pipeline {
     options {
         skipStagesAfterUnstable()
     }
+
+    environment {
+        PATH = "/opt/homebrew/bin:/usr/local/bin:${env.PATH}"
+    }
+
     stages {
+        stage('Cleanup') {
+            steps {
+                deleteDir()
+            }
+        }
+
         stage('Build') {
             steps {
                 sh 'mvn -B -DskipTests clean package'
@@ -19,14 +30,14 @@ pipeline {
                 }
             }
         }
-        stage('Deliver') { 
+        stage('Deliver') {
             steps {
-                sh './jenkins/scripts/deliver.sh' 
+                sh './jenkins/scripts/deliver.sh'
             }
         }
-        stage('Completed') { 
+        stage('Completed') {
             steps {
-                sh 'echo "Completed." ' 
+                sh 'echo "Completed." '
             }
         }
     }
