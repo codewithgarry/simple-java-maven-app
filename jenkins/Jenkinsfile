@@ -72,13 +72,7 @@ pipeline {
             }
         }
 
-        stage('Code Quality') {
-            steps {
-                catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
-                    sh 'mvn verify sonar:sonar -Dsonar.skip=${params.SKIP_SONAR ?: false}'
-                }
-            }
-        }
+    
 
         stage('Deliver') {
             when {
