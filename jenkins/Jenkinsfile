@@ -72,7 +72,12 @@ pipeline {
             }
         }
 
-    
+     stage('Code Quality') {
+            steps {
+                echo 'Sonar testing..'
+                }
+            }
+        }
 
         stage('Deliver') {
             when {
